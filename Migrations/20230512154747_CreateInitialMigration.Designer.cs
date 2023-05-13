@@ -12,7 +12,7 @@ using videogames.Data;
 namespace videogames.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230512102059_CreateInitialMigration")]
+    [Migration("20230512154747_CreateInitialMigration")]
     partial class CreateInitialMigration
     {
         /// <inheritdoc />
@@ -126,7 +126,7 @@ namespace videogames.Migrations
                             Id = 1,
                             Password = "admin",
                             Role = true,
-                            SignUpDate = new DateTime(2023, 5, 12, 12, 20, 59, 55, DateTimeKind.Local).AddTicks(5683),
+                            SignUpDate = new DateTime(2023, 5, 12, 17, 47, 47, 489, DateTimeKind.Local).AddTicks(5899),
                             Username = "admin"
                         },
                         new
@@ -134,7 +134,7 @@ namespace videogames.Migrations
                             Id = 2,
                             Password = "edu12345",
                             Role = false,
-                            SignUpDate = new DateTime(2023, 5, 12, 12, 20, 59, 55, DateTimeKind.Local).AddTicks(5718),
+                            SignUpDate = new DateTime(2023, 5, 12, 17, 47, 47, 489, DateTimeKind.Local).AddTicks(5939),
                             Username = "edu"
                         });
                 });
@@ -147,38 +147,15 @@ namespace videogames.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("GameId")
+                    b.Property<int>("IdGame")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("IdUser")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GameId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserGame");
-                });
-
-            modelBuilder.Entity("videogames.Models.UserGame", b =>
-                {
-                    b.HasOne("videogames.Models.Game", "Game")
-                        .WithMany()
-                        .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("videogames.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Game");
-
-                    b.Navigation("User");
+                    b.ToTable("UserGames");
                 });
 #pragma warning restore 612, 618
         }

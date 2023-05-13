@@ -30,6 +30,20 @@ namespace videogames.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserGames",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdGame = table.Column<int>(type: "int", nullable: false),
+                    IdUser = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserGames", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -43,32 +57,6 @@ namespace videogames.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserGame",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    GameId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserGame", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserGame_Games_GameId",
-                        column: x => x.GameId,
-                        principalTable: "Games",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserGame_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -88,29 +76,19 @@ namespace videogames.Migrations
                 columns: new[] { "Id", "Password", "Role", "SignUpDate", "Username" },
                 values: new object[,]
                 {
-                    { 1, "admin", true, new DateTime(2023, 5, 12, 12, 20, 59, 55, DateTimeKind.Local).AddTicks(5683), "admin" },
-                    { 2, "edu12345", false, new DateTime(2023, 5, 12, 12, 20, 59, 55, DateTimeKind.Local).AddTicks(5718), "edu" }
+                    { 1, "admin", true, new DateTime(2023, 5, 12, 17, 47, 47, 489, DateTimeKind.Local).AddTicks(5899), "admin" },
+                    { 2, "edu12345", false, new DateTime(2023, 5, 12, 17, 47, 47, 489, DateTimeKind.Local).AddTicks(5939), "edu" }
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserGame_GameId",
-                table: "UserGame",
-                column: "GameId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserGame_UserId",
-                table: "UserGame",
-                column: "UserId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "UserGame");
+                name: "Games");
 
             migrationBuilder.DropTable(
-                name: "Games");
+                name: "UserGames");
 
             migrationBuilder.DropTable(
                 name: "Users");
