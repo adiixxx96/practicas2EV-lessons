@@ -26,14 +26,8 @@ public class UserController : ControllerBase
     [HttpPost]
     public ActionResult Post(User user)
     {
-        var existingUserId = Users.Find(x => x.Id == user.Id);
-        var existingUserUsername = Users.Find(x => x.Username == user.Username);
-        if (existingUserId != null)
-        {
-            return Conflict("Ya existe un usuario con ese id");
-
-        }
-        else if (existingUserUsername != null)
+        var existingUserUsername = _context.Users.FirstOrDefault(x => x.Username == user.Username);
+         if (existingUserUsername != null)
         {
             return Conflict("Ya existe un usuario con ese username");
 
